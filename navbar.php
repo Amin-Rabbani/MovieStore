@@ -6,6 +6,7 @@
 <body style="text-align: center">
     <?php if(isset($_SESSION['username'])) : ?>
     <button name="logout" id="logout"><a href="server.php?logout=true"> Log Out </a></button>
+    <button name="profile" id="profile"><a href="profile.php"> Profile </a></button>
     <?php endif ?>
     <button name="mainPage" id="mainPage"><a href="index.php"> Main Page </a></button>
     <?php if($_SESSION['role'] == "publisher") : ?>
