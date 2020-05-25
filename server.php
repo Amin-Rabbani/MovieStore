@@ -107,11 +107,26 @@
         $query = "SELECT movies FROM Members WHERE username='$user'";
         $result = mysqli_query($db, $query);
         $data = mysqli_fetch_assoc($result);
-        $newMovie = "{$movieID}/";
-        $newData = $data['movies'].$newMovie;
-        $query = "UPDATE Members SET movies='$newData' WHERE username='$user'";
-        mysqli_query($db, $query);
-        header('Location: index.php');
-        $_SESSION['msg'] = "You bought a Film Successfully !";
+        if(!movieAlreadyBought($data['movies'], $movieID)){
+            $newMovie = "{$movieID}/";
+            $newData = $data['movies'].$newMovie;
+            $query = "UPDATE Members SET movies='$newData' WHERE username='$user'";
+            mysqli_query($db, $query);
+            header('Location: index.php');
+            $_SESSION['msg'] = "You bought a Film Successfully !";
+        }else{
+            header('Location: index.php');
+            $_SESSION['msg'] = "You already bought this movie !";
+        }
+    }
+
+    function movieAlreadyBought($movies, $newMovie){
+        $movies_arr = explode("/", $movies);
+        foreach($movies_arr as $movieID){
+            echo $movieID . "<br>";
+            if($movieID == $newMovie)
+                return true;
+        }
+        return false;
     }
 ?>
