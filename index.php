@@ -25,13 +25,16 @@
             <th> Director </th>
             <th> Price </th>
             <th> Buy </th>
+            <th> ID </th>
         </tr>
         <?php while($row = mysqli_fetch_assoc($result)) : ?>
             <tr>
-                <td> <?php echo $row['name']; ?> </td>
-                <td> <?php echo $row['director']; ?> </td>
-                <td> <?php echo $row['price']; ?> </td>
-                <td> <?php echo "BUY"; ?> </td>
+                <td><?php echo $row['name']; ?></td>
+                <td><?php echo $row['director']; ?></td>
+                <td><?php echo $row['price']; ?></td>
+                <td><a href="server.php?buyFilm=true&id=<?php echo $row['id'] ?>"> Buy </a></td>
+                <td><?php echo $row['id']; ?></td>
+
             </tr>
         <?php endwhile ?>
     </table>
