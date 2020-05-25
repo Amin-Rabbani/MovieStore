@@ -8,6 +8,8 @@
 
     $errors = array();
     
+    //Register User
+
     if(isset($_POST['register_user'])){
         //Register User
         
@@ -97,4 +99,19 @@
         header('Location: index.php');
     }
 
+    //Buy Film
+
+    if(isset($_GET['buyFilm'])){
+        $movieID = $_GET['id'];
+        $user = $_SESSION['username'];
+        $query = "SELECT movies FROM Members WHERE username='$user'";
+        $result = mysqli_query($db, $query);
+        $data = mysqli_fetch_assoc($result);
+        $newMovie = "{$movieID}/";
+        $newData = $data['movies'].$newMovie;
+        $query = "UPDATE Members SET movies='$newData' WHERE username='$user'";
+        mysqli_query($db, $query);
+        header('Location: index.php');
+        $_SESSION['msg'] = "You bought a Film Successfully !";
+    }
 ?>
