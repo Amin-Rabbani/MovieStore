@@ -105,19 +105,32 @@
 
     if(isset($_GET['buyFilm'])){
         $movieID = $_GET['id'];
-        $query = "SELECT movies FROM Members WHERE username='$user'";
+        $query = "SELECT * FROM Members WHERE username='$user'";
         $result = mysqli_query($db, $query);
         $data = mysqli_fetch_assoc($result);
-        if(!movieAlreadyBought($data['movies'], $movieID)){
+        $query = "SELECT price FROM Movies WHERE id='$movieID'";
+        $result = mysqli_query($db, $query);
+        $dataMovies = mysqli_fetch_assoc($result);
+        $moviePrice = $dataMovies['price'];
+        if(!movieAlreadyBought($data['movies'], $movieID) && haveEnoughCredit($moviePrice, $data['credit'])){
             $newMovie = "{$movieID}/";
             $newData = $data['movies'].$newMovie;
-            $query = "UPDATE Members SET movies='$newData' WHERE username='$user'";
+            $newCredit = (int)$data['credit'] - (int)$moviePrice;
+            echo "fdglsdp\n";
+
+            $query = "UPDATE Members SET movies='$newData' , credit='$newCredit' WHERE username='$user'";
             mysqli_query($db, $query);
             header('Location: index.php');
             $_SESSION['msg'] = "You bought a Film Successfully !";
         }else{
             header('Location: index.php');
-            $_SESSION['msg'] = "You already bought this movie !";
+            if(movieAlreadyBought($data['movies'], $movieID)){
+                $_SESSION['msg'] = "You already bought this movie !";
+                echo "fdglsdp\n";
+            }else{
+                $_SESSION['msg'] = "You don't have enough Credit !";    
+                echo "fdglsdp\n";
+            }
         }
     }
 
@@ -137,10 +150,16 @@
     function movieAlreadyBought($movies, $newMovie){
         $movies_arr = explode("/", $movies);
         foreach($movies_arr as $movieID){
-            echo $movieID . "<br>";
             if($movieID == $newMovie)
                 return true;
         }
         return false;
+    }
+
+    function haveEnoughCredit($moviePrice, $credit){
+        if((int)$credit < (int)$moviePrice)
+            return false;
+        else
+            return true;
     }
 ?>
