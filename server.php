@@ -116,21 +116,16 @@
             $newMovie = "{$movieID}/";
             $newData = $data['movies'].$newMovie;
             $newCredit = (int)$data['credit'] - (int)$moviePrice;
-            echo "fdglsdp\n";
-
             $query = "UPDATE Members SET movies='$newData' , credit='$newCredit' WHERE username='$user'";
             mysqli_query($db, $query);
             header('Location: index.php');
             $_SESSION['msg'] = "You bought a Film Successfully !";
         }else{
             header('Location: index.php');
-            if(movieAlreadyBought($data['movies'], $movieID)){
+            if(movieAlreadyBought($data['movies'], $movieID))
                 $_SESSION['msg'] = "You already bought this movie !";
-                echo "fdglsdp\n";
-            }else{
+            else
                 $_SESSION['msg'] = "You don't have enough Credit !";    
-                echo "fdglsdp\n";
-            }
         }
     }
 

@@ -9,6 +9,7 @@
 <html>
 <head>
     <title> Add Film </title>
+    <link rel="stylesheet" type="text/css" href="pages.css">
 </head>
 <body style="text-align: center">
     <form method="POST" action="server.php">

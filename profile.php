@@ -6,6 +6,7 @@
 <html>
 <head>
     <title> Profile</title>
+    <link rel="stylesheet" type="text/css" href="pages.css">
 </head>
 <body>
     <form method="POST" action="server.php">

@@ -3,15 +3,20 @@
 ?>
 
 <html>
-<body style="text-align: center">
-    <?php if(isset($_SESSION['username'])) : ?>
-    <button name="logout" id="logout"><a href="server.php?logout=true"> Log Out </a></button>
-    <button name="profile" id="profile"><a href="profile.php"> Profile </a></button>
-    <?php endif ?>
-    <button name="mainPage" id="mainPage"><a href="index.php"> Main Page </a></button>
-    <?php if($_SESSION['role'] == "publisher") : ?>
-    <button name="addFilm" id="addFilm"><a href="addFilm.php"> Add Film </a></button>
-    <?php endif ?>
+<head>
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+</head>
+<body>
+    <div class="topnav">
+        <?php if(isset($_SESSION['username'])) : ?>
+        <a href="server.php?logout=true"> Log Out </a>
+        <a href="profile.php"> Profile </a>
+        <?php endif ?>
+        <a href="index.php"> Main Page </a>
+        <?php if($_SESSION['role'] == "publisher") : ?>
+        <a href="addFilm.php"> Add Film </a>
+        <?php endif ?>
+    </div>
     <br><br>
 </body>
 </html>

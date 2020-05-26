@@ -9,6 +9,8 @@
 <html>
 <head>
     <title> Main Page </title>
+    <link rel="stylesheet" type="text/css" href="moviesTable.css">
+    <link rel="stylesheet" type="text/css" href="pages.css">
 </head>
 <body>
     <?php
@@ -19,13 +21,12 @@
         $result = mysqli_query($db, $query);
     ?>
     <?php if(mysqli_num_rows($result)) : ?>
-    <table name="Movies">
+    <table class="movies">
         <tr>
             <th> Name </th>
             <th> Director </th>
             <th> Price </th>
             <th> Buy </th>
-            <th> ID </th>
         </tr>
         <?php while($row = mysqli_fetch_assoc($result)) : ?>
             <tr>
@@ -33,8 +34,6 @@
                 <td><?php echo $row['director']; ?></td>
                 <td><?php echo $row['price']; ?></td>
                 <td><a href="server.php?buyFilm=true&id=<?php echo $row['id'] ?>"> Buy </a></td>
-                <td><?php echo $row['id']; ?></td>
-
             </tr>
         <?php endwhile ?>
     </table>

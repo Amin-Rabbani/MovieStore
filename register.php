@@ -5,6 +5,7 @@
 <html>
 <head>
     <title> register </title>
+    <link rel="stylesheet" type="text/css" href="login.css">
 </head>
 <body style="text-align: center;">
     <br><br><br><br><br><br>
