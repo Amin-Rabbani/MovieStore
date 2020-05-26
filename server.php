@@ -8,6 +8,8 @@
 
     $errors = array();
     
+    $user = $_SESSION['username'];
+
     //Register User
 
     if(isset($_POST['register_user'])){
@@ -103,7 +105,6 @@
 
     if(isset($_GET['buyFilm'])){
         $movieID = $_GET['id'];
-        $user = $_SESSION['username'];
         $query = "SELECT movies FROM Members WHERE username='$user'";
         $result = mysqli_query($db, $query);
         $data = mysqli_fetch_assoc($result);
@@ -118,6 +119,19 @@
             header('Location: index.php');
             $_SESSION['msg'] = "You already bought this movie !";
         }
+    }
+
+    //Charge profile
+
+    if(isset($_POST['charge'])){
+        $query = "SELECT credit FROM Members WHERE username='$user'";
+        $result = mysqli_query($db, $query);
+        $data = mysqli_fetch_assoc($result);
+        $newCredit = $_POST['credit'] + $data['credit'];
+        $query = "UPDATE Members SET credit='$newCredit' WHERE username='$user'";
+        mysqli_query($db, $query);
+        header('Location: index.php');
+        $_SESSION['msg'] = "Your profile charged Successfully !";
     }
 
     function movieAlreadyBought($movies, $newMovie){
