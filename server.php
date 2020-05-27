@@ -73,7 +73,7 @@
             $_SESSION['msg'] = "You logged in Successfully !";
             header('Location: index.php');
         }else{
-            array_push($errors, "Wrong UserName or Password!");
+            $_SESSION['msg'] = "UserName or Password are incorrect !";
         }
     }
     

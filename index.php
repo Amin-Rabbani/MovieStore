@@ -16,7 +16,7 @@
     <?php
         if($_SESSION['username'] == "") 
             header('Location: login.php');
-        echo "You are a " . $_SESSION['role'] . " .<br><br><br><br><br>";
+        echo "Welcome " . $_SESSION['username'] . " . <br><br><br> ";
         $query = "SELECT * FROM Movies";
         $result = mysqli_query($db, $query);
     ?>
